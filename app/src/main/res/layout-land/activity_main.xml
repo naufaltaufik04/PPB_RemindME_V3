@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Kalau error ubah jadi androidx.constraintlayout.widget.ConstraintLayout-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary">
+
+
+    <com.example.remindME.customComponent.SwipeDisabledViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.example.remindME.customComponent.SwipeDisabledViewPager>
+
+    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+
+        app:layout_constraintBottom_toBottomOf="@+id/viewPager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:mbn_backgroundBottomColor="#FFFFFF"
+        app:mbn_circleColor="@color/secondary"
+        app:mbn_countBackgroundColor="#B75093FF"
+        app:mbn_countTextColor="#FFFFFF"
+        app:mbn_defaultIconColor="@color/secondary"
+        app:mbn_selectedIconColor="#FFFFFF"
+        app:mbn_shadowColor="@color/shadow" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,8 +35,6 @@ import java.util.Date;
 
 public class AddContentFragment extends Fragment implements AdapterView.OnItemSelectedListener{
 
-    private ContentViewModel contentViewModel;
-
     private EditText titleInput;
     private EditText detailsInput;
     private Spinner difficultyInput;

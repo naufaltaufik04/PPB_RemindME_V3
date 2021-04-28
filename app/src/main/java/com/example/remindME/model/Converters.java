@@ -22,19 +22,11 @@ public class Converters {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @TypeConverter
     public static LocalDateTime toDate(String dateString) {
-        if (dateString == null) {
-            return null;
-        } else {
-            return LocalDateTime.parse(dateString);
-        }
+        return dateString == null ? null : LocalDateTime.parse(dateString);
     }
 
     @TypeConverter
     public static String toDateString(LocalDateTime date) {
-        if (date == null) {
-            return null;
-        } else {
-            return date.toString();
-        }
+        return date == null ? null : date.toString();
     }
 }

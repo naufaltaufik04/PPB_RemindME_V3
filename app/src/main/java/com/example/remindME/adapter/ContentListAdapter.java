@@ -1,14 +1,22 @@
 package com.example.remindME.adapter;
 
+import android.os.Build;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
 import com.example.remindME.model.Content;
 import com.example.remindME.model.ContentViewHolder;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Currency;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class ContentListAdapter extends ListAdapter<Content, ContentViewHolder> {
@@ -22,41 +30,11 @@ public class ContentListAdapter extends ListAdapter<Content, ContentViewHolder> 
         return ContentViewHolder.create(parent, getCurrentList());
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(ContentViewHolder holder, int position) {
         Content current = getItem(position);
-
-        String temp;
-        switch (current.getDifficulty()){
-            case 1:{
-                temp = "Sulit";
-                break;
-            }
-            case 2:{
-                temp = "Sedang";
-                break;
-            }
-            case 3:{
-                temp = "Mudah";
-                break;
-            }
-            default:{
-                temp = " - ";
-                break;
-            }
-        }
-
-        int timeRemaining = (int) TimeUnit.DAYS.convert(
-                Long.valueOf(current.getDueDate().getTime()) - (current.getDateCreated().getTime()),
-                TimeUnit.MILLISECONDS);
-
-        holder.bind(current.getDueDate().toString().substring(4, 7),
-                String.valueOf(current.getDueDate().getDate()),
-                current.getTitle().toString(),
-                ("Kesulitan: " + temp),
-                timeRemaining,
-                current.isCompleted()
-        );
+        holder.bind(current);
     }
 
     static public class WordDiff extends DiffUtil.ItemCallback<Content> {

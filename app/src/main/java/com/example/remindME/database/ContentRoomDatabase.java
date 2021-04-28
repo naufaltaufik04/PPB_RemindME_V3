@@ -35,18 +35,6 @@ public abstract class ContentRoomDatabase extends RoomDatabase {
                 dao.deleteAll();
 
                 Content content = null;
-//                try {
-//                    content = new Content(
-//                            "Implementasi Aplikasi",
-//                            "Ini Detailnya",
-//                            1,
-//                            new SimpleDateFormat("yyyy/MM/dd").parse("2021/04/01"),
-//                            new SimpleDateFormat("yyyy/MM/dd").parse("2021/03/31")
-//                    );
-//                    dao.insert(content);
-//                } catch (ParseException e) {
-//                    e.printStackTrace();
-//                }
             });
         }
     };

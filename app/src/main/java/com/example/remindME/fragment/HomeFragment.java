@@ -22,6 +22,7 @@ import com.example.remindME.model.ContentViewModel;
 import com.example.remindME.customComponent.EmptyRecyclerView;
 import com.example.remindME.R;
 import com.example.remindME.customComponent.SpacingItemDecorator;
+import com.example.remindME.view.FloatingButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeFragment extends Fragment {
@@ -30,16 +31,6 @@ public class HomeFragment extends Fragment {
     private ContentViewModel contentViewModel;
     private ContentListAdapter adapter;
 
-    FloatingActionButton actionButton;
-    FloatingActionButton byDifficulty;
-    FloatingActionButton byDate;
-    FloatingActionButton byDefault;
-    Animation rotateOpen;
-    Animation rotateClose;
-    Animation fromBottom;
-    Animation toBottom;
-
-    private boolean isClicked;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -65,79 +56,12 @@ public class HomeFragment extends Fragment {
         SpacingItemDecorator itemDecorator = new SpacingItemDecorator(20, 10, 10);
         recyclerView.addItemDecoration(itemDecorator);
 
-        byDifficulty = view.findViewById(R.id.sortByDifficultyButton);
-        byDate = view.findViewById(R.id.sortByDateButton);
-        byDefault = view.findViewById(R.id.sortByDefaultButton);
-        rotateOpen = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_open_animation);
-        rotateClose = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_cloes_animation);
-        fromBottom = AnimationUtils.loadAnimation(getContext(), R.anim.from_bottom_animation);
-        toBottom = AnimationUtils.loadAnimation(getContext(), R.anim.to_bottom_animation);
+        FloatingButton floatingButton = new FloatingButton();
+        floatingButton.initialization(view, getContext());
+        sortingContent(floatingButton, this);
 
-        actionButton = view.findViewById(R.id.viewFloatingButton);
-        actionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onFloatingButtonClicked(view);
-            }
-        });
-
-        onFloatingButtonClick();
         contentIsCompleate();
         return view;
-    }
-
-    private void onFloatingButtonClicked(View view){
-        setVisibiity(view);
-        if(isClicked){
-            isClicked = false;
-        }
-        else{
-            isClicked = true;
-        }
-    }
-
-    private void setVisibiity(View view){
-        if(!isClicked){
-            byDifficulty.setVisibility(View.VISIBLE);
-            byDate.setVisibility(View.VISIBLE);
-            byDefault.setVisibility(View.VISIBLE);
-
-            byDifficulty.startAnimation(fromBottom);
-            byDate.startAnimation(fromBottom);
-            byDefault.startAnimation(fromBottom);
-
-        }
-        else{
-            byDifficulty.setVisibility(View.INVISIBLE);
-            byDate.setVisibility(View.INVISIBLE);
-            byDefault.setVisibility(View.INVISIBLE);
-
-            byDifficulty.startAnimation(toBottom);
-            byDate.startAnimation(toBottom);
-            byDefault.startAnimation(toBottom);
-        }
-    }
-
-
-    private void onFloatingButtonClick(){
-        byDefault.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sortingContent(1);
-            }
-        });
-        byDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sortingContent(2);
-            }
-        });
-        byDifficulty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sortingContent(3);
-            }
-        });
     }
 
     public void contentIsCompleate(){
@@ -159,27 +83,31 @@ public class HomeFragment extends Fragment {
         new ItemTouchHelper(itemTouchHelper).attachToRecyclerView(recyclerView);
     }
 
-    public void sortingContent(int choosed){
-        switch (choosed){
-            case 1:{
-                contentViewModel.getContentByDefault().observe(this, content -> {
+    public void sortingContent(FloatingButton floatingButton, HomeFragment home){
+        floatingButton.byDefault.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contentViewModel.getContentByDefault().observe(home, content -> {
                     adapter.submitList(content);
                 });
-                break;
             }
-            case 2:{
-                contentViewModel.getContentByDate().observe(this, content -> {
+        });
+        floatingButton.byDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contentViewModel.getContentByDate().observe(home, content -> {
                     adapter.submitList(content);
                 });
-                break;
             }
-            case 3:{
-                contentViewModel.getContentByDifficulty().observe(this, content -> {
+        });
+        floatingButton.byDifficulty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contentViewModel.getContentByDifficulty().observe(home, content -> {
                     adapter.submitList(content);
                 });
-                break;
             }
-        }
+        });
     }
 
     @Override

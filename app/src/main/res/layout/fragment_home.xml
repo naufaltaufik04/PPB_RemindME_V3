@@ -71,7 +71,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:visibility="visible"
-        android:backgroundTint="@color/secondary"
+        android:backgroundTint="@color/white"
         app:rippleColor="@color/white"
         android:src="@drawable/ic_sort"/>
 

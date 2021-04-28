@@ -20,4 +20,10 @@
     <color name="shadow">#bfafb2</color>
     <color name="transparant">#00FFFFFF</color>
 
+    <!-- Recyclerview item-->
+    <color name="default_item_color">@color/content</color>
+    <color name="today_item_color">@color/secondary</color>
+    <color name="late_item_color">#D9FF6A6A</color>
+    <color name="complete_item_color">#D93ED709</color>
+
 </resources>
